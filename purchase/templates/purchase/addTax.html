@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add Tax</title>
+  </head>
+  <body>
+    <section style="text-align="center>
+      <h1>Add Tax</h1>
+      {% block content %}
+      <form method="POST" class="tax-form">{% csrf_token %}
+             {{ form.as_p }}
+             <button type="submit" class="save btn btn-default">Save</button>
+         </form>
+          <a href="{% url 'home' %}">Go To Home</a>
+ {% endblock %}
+
+    </section>
+
+  </body>
+</html>
