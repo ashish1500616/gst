@@ -78,14 +78,26 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+
         'NAME': 'gstdb',
         'USER': 'gstuser',
         'PASSWORD': 'admin123',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'NAME': 'gstdb',
+#         'ENGINE': 'sqlserver_ado',
+#         'HOST': 'dbserver\\ss2012',
+#         'USER': 'root',
+#         'PASSWORD': 'Verma123',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

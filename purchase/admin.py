@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 
-from .models import Vendor, Product, Tax
+from .models import Vendor, Product, Tax, Country, State
 
 # class Vendor(admin.ModelAdmin):
 #     pass
@@ -12,3 +12,5 @@ from .models import Vendor, Product, Tax
 admin.site.register(Vendor)
 admin.site.register(Product)
 admin.site.register(Tax)
+admin.site.register(Country)
+admin.site.register(State)

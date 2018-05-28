@@ -11,6 +11,25 @@ class Tax(models.Model):
         return (str(self.value) + "%   " + self.taxName)
 
 
+class Country(models.Model):
+    country_cd = models.CharField(blank=True, max_length=2)
+    country_name = models.CharField(
+        blank=False, primary_key=True, max_length=20, default="")
+
+    def __str__(self):
+        return self.country_name
+
+
+class State(models.Model):
+    state_cd = models.CharField(blank=True, max_length=2)
+    state_name = models.CharField(blank=True, primary_key=True, max_length=20)
+    country_name = models.ForeignKey(
+        Country, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.state_name
+
+
 class Vendor(models.Model):
     country_choices = (
         ('IN', 'India'),
@@ -26,8 +45,18 @@ class Vendor(models.Model):
         max_length=10, blank=True, null=True, default="")
     address = models.CharField(blank=True, max_length=100)
     landMark = models.CharField(blank=True, max_length=100)
-    country = models.CharField(max_length=2, choices=country_choices)
-    state = models.CharField(max_length=2, choices=state_choices)
+    # country = models.CharField(max_length=2, choices=country_choices)
+
+    # country = models.ForeignKey(
+    #     Country, on_delete=models.CASCADE, related_name='vendor_country', default="")
+    # state = models.ForeignKey(
+    #     State, on_delete=models.CASCADE, related_name='vendor_state', default="")
+
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
+
+    # country = models.CharField(max_length=2, choices=country_choices)
+    # state = models.CharField(max_length=2, choices=country_choices)
     pincode = models.CharField(blank=True, max_length=6, default="")
     fax_no = models.CharField(blank=True, max_length=15, default="")
     website = models.CharField(blank=True, max_length=100)
@@ -46,7 +75,7 @@ class Product(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(blank=False, max_length=50)
     sellPrice = models.BigIntegerField(blank=True)
-    purchasePrice = models.BigIntegerField(blank=True, )
+    purchasePrice = models.BigIntegerField(blank=True)
     productCode = models.CharField(blank=True, max_length=15)
     unitMeasurement = models.CharField(
         max_length=5, choices=measurement_choices)
@@ -63,3 +92,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class PurchaseInvoice(models.Model):
+    vendor_name = models.ForeignKey(
+        Vendor, on_delete=models.CASCADE, related_name='purchase_vendor_name', default="")
+    purchaseInvoiceNo = models.BigIntegerField(blank=False)
