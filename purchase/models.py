@@ -30,6 +30,18 @@ class State(models.Model):
         return self.state_name
 
 
+class Town(models.Model):
+    town_cd = models.CharField(blank=True, max_length=2)
+    town_name = models.CharField(blank=True, primary_key=True, max_length=20)
+    state_name = models.ForeignKey(
+        State, on_delete=models.CASCADE)
+    country_name = models.ForeignKey(
+        Country, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.town_name
+
+
 class Vendor(models.Model):
     country_choices = (
         ('IN', 'India'),
@@ -54,6 +66,7 @@ class Vendor(models.Model):
 
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
+    town = models.ForeignKey(Town, on_delete=models.SET_NULL, null=True)
 
     # country = models.CharField(max_length=2, choices=country_choices)
     # state = models.CharField(max_length=2, choices=country_choices)

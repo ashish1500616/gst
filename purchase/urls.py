@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^addtax/$', views.addTax, name='add_Tax'),
     url(r'^$', views.home, name='home'),
     url('ajax/load-states/', views.load_states, name='ajax_load_states'),
+    url('ajax/load-towns/', views.load_towns, name='ajax_load_towns'),
 ]

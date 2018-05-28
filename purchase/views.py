@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .models import Vendor, Country, State
+from .models import Vendor, Country, State, Town
 from .forms import VendorForm, ProductForm, TaxForm
 from django.views.generic import ListView, CreateView, UpdateView
 
@@ -17,7 +17,19 @@ def load_states(request):
     country_name_id = request.GET.get('country')
     states = State.objects.filter(
         country_name_id=country_name_id).order_by('state_name')
+    print(states)
     return render(request, 'purchase/state_dropdown_list_options.html', {'states': states})
+
+
+def load_towns(request):
+    print("\t \nInside Load Towns.\t\n")
+    country_name_id = request.GET.get('country')
+    state_name_id = request.GET.get('state')
+    towns = Town.objects.filter(
+        state_name_id=state_name_id, country_name_id=country_name_id)
+
+    print(towns)
+    return render(request, 'purchase/town_dropdown_list_options.html', {'towns': towns})
 
 
 class AddVendors(CreateView):
