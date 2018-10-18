@@ -1,0 +1,98 @@
+<!DOCTYPE html>{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Add Sales Statement</title>
+  <link rel="stylesheet" href="{% static 'css/purchase.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'css/jquery_ui.css' %}"> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+</head>
+
+<body>
+  <section>
+    <h1>Add Purchase Statement</h1> {% block content %}
+    <input class="ui-button ui-widget ui-corner-all" type="submit" value="Select Date" id="datepicker">
+
+    <form method="POST" id="AddPurchaseStatementForm" novalidate>
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <button type="button" name="button" id="calculate">Calculate</button>
+      <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    <a href="{% url 'purchase:home' %}">Go To Home</a>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script>
+      // $(function() {
+      //
+      //   $(function() {
+      //     $("#datepicker").change(function() {
+      //       document.getElementById("id_date").value = $("#datepicker").datepicker();
+      //     });
+      //   });
+      //   var dateFormat = "mm/dd/yy";
+      //
+      //   function getDate(element) {
+      //     var date;
+      //     try {
+      //       date = $.datepicker.parseDate(dateFormat, element.value);
+      //     } catch (error) {
+      //       date = null;
+      //     }
+      //
+      //     return date;
+      //   }
+      // });
+      $(function() {
+        $("#datepicker").datepicker();
+
+      });
+      $("#datepicker").change(function() {
+        document.getElementById("id_date").value = $("#datepicker").val();
+      })
+
+      var tax_type = ""
+      $("#calculate").click(function() {
+        console.log("Calculate clicked");
+        var tax_type = $(id_tax_type).val();
+        console.log(tax_type);
+        var principal = $(id_tax_amount).val();
+        console.log(principal);
+
+        if (tax_type == "IGST") {
+          var tax_value = $(id_tax_value).val();
+          console.log(tax_value);
+          var igst_val = Math.round((tax_value / 100) * principal);
+          console.log(igst_val);
+          document.getElementById("id_igst").value = igst_val;
+          document.getElementById("id_cgst").value = 0;
+          document.getElementById("id_sgst").value = 0;
+          document.getElementById("id_total_ammount").value = Number(igst_val) + Number(principal);
+        } else {
+          var tax_value = $(id_tax_value).val();
+          var tax = Math.round((tax_value / 100) * principal);
+          console.log(tax);
+          document.getElementById("id_igst").value = 0;
+          document.getElementById("id_cgst").value = tax;
+          document.getElementById("id_sgst").value = tax;
+          document.getElementById("id_total_ammount").value = (2 * Number(tax)) + Number(principal);
+
+        }
+      });
+    </script>
+
+
+    {% endblock %}
+
+  </section>
+
+</body>
+
+
+</html>

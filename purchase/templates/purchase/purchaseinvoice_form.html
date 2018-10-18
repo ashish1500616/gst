@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Create A Purchase Invoice</title>
+</head>
+
+<body>
+  <section style="text-align=" center>
+    <h1>Create A Purchase Invoice</h1> {% block content %}
+    <form method="POST" id="PurchaseInvoiceForm">{% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+
+      <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    <a href="{% url 'purchase:home' %}">Go To Home</a> {% endblock %}
+
+  </section>
+
+</body>
+
+</html>

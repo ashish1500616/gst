@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Create Attendence</title>
+</head>
+
+<body>
+  <section style="text-align=" center>
+    <h1>Create Attendence for  &nbsp; {{today_date}}</h1> {% block content %}
+    <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Present&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Absent</h3>
+
+
+
+    <!--  <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ w.id }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ w.worker_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+    <div>
+      <form action="{% url 'tokenapp:submit_attendence' %}" method="post">
+        {% csrf_token %} {% for w in now %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{forloop.counter}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="your_name">{{ w.worker_name }} </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="radio" name="{{w.id}}" value="{{w.id}}" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="{{w.id}}" value="0">
+        <br>{% endfor %}
+        <input type="submit" value="OK">
+      </form>
+    </div>
+
+    <br>
+    <a href="{% url 'purchase:home' %}">Go To Home</a> {% endblock %}
+  </section>
+
+</body>
+
+</html>

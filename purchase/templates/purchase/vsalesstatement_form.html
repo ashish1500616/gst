@@ -1,0 +1,84 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>View Sales Statement</title>
+  <link rel="stylesheet" href="{% static 'css/purchase.css' %}">
+  <link rel="stylesheet" href="{% static 'css/jquery_ui.css' %}">
+</head>
+
+<body>
+  <section style="text-align=" center>
+    <h1>View Sales Statement</h1> {% block content %} Select From: <input class="ui-button ui-widget ui-corner-all" type="submit" value="from" id="datepicker-frm">
+    <br> Select End
+    <input class="ui-button ui-widget ui-corner-all" type="submit" value="to" id="datepicker-to">
+
+
+
+
+
+    <form method="POST" id="ViewPurchaseStatementForm" novalidate>
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+
+      <button type="submit" class="save btn btn-default">View</button>
+    </form>
+
+
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      // $(function() {
+      //   $("#datepicker").datepicker();
+      // });
+
+      // $(function() {
+      //   $("#datepicker-yr").datepicker({
+      //     showWeek: true,
+      //     firstDay: 1
+      //   });
+      // });
+
+      $(function() {
+        var dateFormat = "mm/dd/yy",
+          from = $("#datepicker-frm")
+          .datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3
+          })
+          .on("change", function() {
+            to.datepicker("option", "minDate", getDate(this));
+            document.getElementById("id_from_date").value = $("#datepicker-frm").val();
+          }),
+          to = $("#datepicker-to")
+          .datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3
+          })
+          .on("change", function() {
+            from.datepicker("option", "maxDate", getDate(this));
+            document.getElementById("id_end_date").value = $("#datepicker-to").val();
+          });
+
+        function getDate(element) {
+          var date;
+          try {
+            date = $.datepicker.parseDate(dateFormat, element.value);
+          } catch (error) {
+            date = null;
+          }
+
+          return date;
+        }
+      });
+    </script>
+  </section>
+</body>
+
+</html>

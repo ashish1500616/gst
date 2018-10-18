@@ -1,0 +1,410 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sales Statement from {{sd}} to {{ed}}</title>
+  <link rel="stylesheet" href="{% static 'css/statement.css' %}">
+</head>
+
+<body>
+  <section>
+    <h1 style="text-align:center">Sales Statement from {{sd}} ----to---- {{ed}}.</h1> {% block content %}
+    <table style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Bill No</th>
+        <th>Rate,Type</th>
+        <th>Tax Amount</th>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total Ammount</th>
+      </tr>
+      {% for statement in purchase_statement_views %}
+      <tr>
+        <td>{{ statement.date }}</td>
+        <td>{{ statement.bill_no }}</td>
+        <td>{{ statement.tax_value }} ,{{ statement.tax_type }} </td>
+        <td>{{ statement.tax_amount }}</td>
+        <td>{{ statement.igst }}</td>
+
+        <td>{{ statement.cgst }}</td>
+        <td>{{ statement.sgst }}</td>
+        <td> {{ statement.total_ammount }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total Purchase</td>
+        <td>{{tta}}</td>
+        <td>{{tigst}}</td>
+        <td>{{tcgst}}</td>
+        <td>{{tsgst}}</td>
+        <td>{{ta}}</td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <hr>
+    <div style="text-align:center">
+      <h1>Total Ammount Based On Slab.</h1>
+    </div>
+    <div class="">
+      <h1 style="text-align:center"> IGST</h1>
+      <table style="width:100%">
+        <tr>
+          <th>5 % IGST</th>
+          <th>12 % IGST</th>
+          <th>18 % IGST</th>
+        </tr>
+        <tr>
+          <td>{{igst5}}</td>
+          <td>{{igst12}}</td>
+          <td>{{igst18}}</td>
+        </tr>
+      </table>
+
+    </div>
+    <br>
+    <hr>
+    <div class="">
+      <h1 style="text-align:center"> CGST + IGST</h1>
+      <table style="width:100%">
+        <tr>
+          <th>2.5 % CGST</th>
+          <th>6 % CGST</th>
+          <th>9 % CGST</th>
+        </tr>
+        <tr>
+          <td>{{cgst25}}</td>
+          <td>{{cgst6}}</td>
+          <td>{{cgst9}}</td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <div class="">
+      <table style="width:100%">
+        <tr>
+          <th>2.5 % SGST</th>
+          <th>6 % SGST</th>
+          <th>9 % SGST</th>
+        </tr>
+        <tr>
+          <td>{{cgst25}}</td>
+          <td>{{cgst6}}</td>
+          <td>{{cgst9}}</td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <!-- Table For IGST 5 -->
+    <h1 style="text-align:center"> IGST 5%</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Bill No</th>
+        <th>Rate,Type</th>
+        <th>Tax Amount</th>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total Ammount</th>
+      </tr>
+      {% for statement in ps5igst %}
+      <tr>
+        <td>{{ statement.date }}</td>
+        <td>{{ statement.bill_no }}</td>
+        <td>{{ statement.tax_value }} ,{{ statement.tax_type }} </td>
+        <td>{{ statement.tax_amount }}</td>
+        <td>{{ statement.igst }}</td>
+
+        <td>{{ statement.cgst }}</td>
+        <td>{{ statement.sgst }}</td>
+        <td> {{ statement.total_ammount }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total </td>
+        <td>{{t_p_s_5_igst_tax_amount}}</td>
+        <td>{{t_p_s_5_igst}}</td>
+        <td>0</td>
+        <td>0</td>
+        <td>{{t_p_s_5_igst_total_amount}}</td>
+      </tr>
+    </table>
+
+    <br>
+    <!-- Table For IGST 12 -->
+    <br>
+    <h1 style="text-align:center"> IGST 12%</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Bill No</th>
+        <th>Rate,Type</th>
+        <th>Tax Amount</th>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total Ammount</th>
+      </tr>
+      {% for statement in ps12igst %}
+      <tr>
+        <td>{{ statement.date }}</td>
+        <td>{{ statement.bill_no }}</td>
+        <td>{{ statement.tax_value }} ,{{ statement.tax_type }} </td>
+        <td>{{ statement.tax_amount }}</td>
+        <td>{{ statement.igst }}</td>
+
+        <td>{{ statement.cgst }}</td>
+        <td>{{ statement.sgst }}</td>
+        <td> {{ statement.total_ammount }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total </td>
+        <td>{{t_p_s_12_igst_tax_amount}}</td>
+        <td>{{t_p_s_12_igst}}</td>
+        <td>0</td>
+        <td>0</td>
+        <td>{{t_p_s_12_igst_total_amount}}</td>
+      </tr>
+    </table>
+
+    <br>
+    <!-- Table For IGST 18 -->
+    <br>
+    <h1 style="text-align:center"> IGST 18%</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Bill No</th>
+        <th>Rate,Type</th>
+        <th>Tax Amount</th>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total Ammount</th>
+      </tr>
+      {% for statement in ps18igst %}
+      <tr>
+        <td>{{ statement.date }}</td>
+        <td>{{ statement.bill_no }}</td>
+        <td>{{ statement.tax_value }} ,{{ statement.tax_type }} </td>
+        <td>{{ statement.tax_amount }}</td>
+        <td>{{ statement.igst }}</td>
+
+        <td>{{ statement.cgst }}</td>
+        <td>{{ statement.sgst }}</td>
+        <td> {{ statement.total_ammount }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total </td>
+        <td>{{t_p_s_18_igst_tax_amount}}</td>
+        <td>{{t_p_s_18_igst}}</td>
+        <td>0</td>
+        <td>0</td>
+        <td>{{t_p_s_18_igst_total_amount}}</td>
+      </tr>
+    </table>
+    <!-- Table For CGST 2.5 -->
+    <br>
+    <h1 style="text-align:center"> CGST + SCGST 2.5%</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Bill No</th>
+        <th>Rate,Type</th>
+        <th>Tax Amount</th>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total Ammount</th>
+      </tr>
+      {% for statement in ps25cgst %}
+      <tr>
+        <td>{{ statement.date }}</td>
+        <td>{{ statement.bill_no }}</td>
+        <td>{{ statement.tax_value }} ,{{ statement.tax_type }} </td>
+        <td>{{ statement.tax_amount }}</td>
+        <td>{{ statement.igst }}</td>
+
+        <td>{{ statement.cgst }}</td>
+        <td>{{ statement.sgst }}</td>
+        <td> {{ statement.total_ammount }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total </td>
+        <td>{{t_p_s_25_cgst_tax_amount}}</td>
+        <td>0</td>
+        <td>{{t_p_s_25_cgst}}</td>
+        <td>{{t_p_s_25_sgst}}</td>
+        <td>{{t_p_s_25_cgst_total_amount}}</td>
+      </tr>
+    </table>
+
+    <!-- Table For CGST 6 -->
+    <br>
+    <h1 style="text-align:center"> CGST + SGST 6%</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Bill No</th>
+        <th>Rate,Type</th>
+        <th>Tax Amount</th>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total Ammount</th>
+      </tr>
+      {% for statement in ps6cgst %}
+      <tr>
+        <td>{{ statement.date }}</td>
+        <td>{{ statement.bill_no }}</td>
+        <td>{{ statement.tax_value }} ,{{ statement.tax_type }} </td>
+        <td>{{ statement.tax_amount }}</td>
+        <td>{{ statement.igst }}</td>
+
+        <td>{{ statement.cgst }}</td>
+        <td>{{ statement.sgst }}</td>
+        <td> {{ statement.total_ammount }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total </td>
+        <td>{{t_p_s_6_cgst_tax_amount}}</td>
+        <td>0</td>
+        <td>{{t_p_s_6_cgst}}</td>
+        <td>{{t_p_s_6_sgst}}</td>
+        <td>{{t_p_s_6_cgst_total_amount}}</td>
+      </tr>
+    </table>
+
+    <!-- Table For CGST + SGST  9 -->
+    <br>
+    <h1 style="text-align:center"> CGST + SGST 9%</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Date</th>
+        <th>Bill No</th>
+        <th>Rate,Type</th>
+        <th>Tax Amount</th>
+        <th>IGST</th>
+        <th>CGST</th>
+        <th>SGST</th>
+        <th>Total Ammount</th>
+      </tr>
+      {% for statement in ps9cgst %}
+      <tr>
+        <td>{{ statement.date }}</td>
+        <td>{{ statement.bill_no }}</td>
+        <td>{{ statement.tax_value }} ,{{ statement.tax_type }} </td>
+        <td>{{ statement.tax_amount }}</td>
+        <td>{{ statement.igst }}</td>
+
+        <td>{{ statement.cgst }}</td>
+        <td>{{ statement.sgst }}</td>
+        <td> {{ statement.total_ammount }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+        <td>---</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total </td>
+        <td>{{t_p_s_9_cgst_tax_amount}}</td>
+        <td>0</td>
+        <td>{{t_p_s_9_cgst}}</td>
+        <td>{{t_p_s_9_sgst}}</td>
+        <td>{{t_p_s_9_cgst_total_amount}}</td>
+      </tr>
+    </table>
+    {% endblock %}
+  </section>
+</body>
+
+</html>

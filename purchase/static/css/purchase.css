@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Teko');
+
+.wrapper{
+  margin-left:auto;
+  margin-right:auto;
+  width:60%;
+}
+p{
+   font-family: 'Teko', sans-serif;
+  font-size:30px;
+}
+h2{
+  text-align:center;
+       font-family: 'Teko', sans-serif;
+     text-transform:uppercase;
+       font-size:60px;
+}
+h1{
+     font-family: 'Teko', sans-serif;
+     text-transform:uppercase;
+  font-size:30px;
+}
+.ui-button{
+  background-color:#F6BB42;
+  color:white;
+
+}
+.ui-button{
+     font-family: 'Teko', sans-serif;
+     font-size:30px;
+  text-transform:uppercase;
+}
