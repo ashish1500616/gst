@@ -9,15 +9,15 @@
 <body>
   <section style="text-align=" center>
     <h1>Add Vendors</h1> {% block content %}
-    <form method="POST" id="vendorForm" data-states-url="{% url 'ajax_load_states'%}" data-towns-url="{% url 'ajax_load_towns'%}" novalidate>
-      <!--data-towns-url="{% url 'ajax_load_towns'%}"-->{% csrf_token %}
+    <form method="POST" id="vendorForm" data-states-url="{% url 'purchase:ajax_load_states'%}" data-towns-url="{% url 'purchase:ajax_load_towns'%}" novalidate>
+      {% csrf_token %}
       <table>
         {{ form.as_table }}
       </table>
 
       <button type="submit" class="save btn btn-default">Save</button>
     </form>
-    <a href="{% url 'home' %}">Go To Home</a>
+    <a href="{% url 'purchase:home' %}">Go To Home</a>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -68,5 +68,6 @@
   </section>
 
 </body>
+
 
 </html>

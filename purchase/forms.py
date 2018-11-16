@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Vendor, Product, Tax, Country, State, Town
+from .models import Vendor, Product, Tax, Country, State, Town, PurchaseInvoice, SalesStatement, VSalesStatement
 
 
 class VendorForm(forms.ModelForm):
@@ -40,11 +40,31 @@ class VendorForm(forms.ModelForm):
                 'town_name')
 
 
+class SalesStatementForm(forms.ModelForm):
+    class Meta:
+        model = SalesStatement
+        fields = '__all__'
+
+
+class VSalesStatementForm(forms.ModelForm):
+    class Meta:
+        model = VSalesStatement
+        fields = '__all__'
+
+
 class ProductForm(forms.ModelForm):
     # TODO: Define other fields here
 
     class Meta:
         model = Product
+        fields = '__all__'
+
+
+class PurchaseInvoiceForm(forms.ModelForm):
+    # TODO: Define other fields here
+
+    class Meta:
+        model = PurchaseInvoice
         fields = '__all__'
 
 

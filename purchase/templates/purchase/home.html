@@ -7,9 +7,24 @@
 </head>
 
 <body>
-  <h1>Hi there<h1>
-      <a href="{% url 'vendor_add' %}">Add Vendor</a>
-        <a href="{% url 'add_Products' %}">Add Product</a>
-              <a href="{% url 'add_Tax' %}">Add Tax</a>
-  </body>
+  <h4>GST BILLING<h4>
+    <div class="links">
+      <h4> PURCHASE </h4>
+  <a href="{% url 'purchase:vendor_add' %}">Add Vendor</a> <br>
+  <a href="{% url 'purchase:add_Products' %}">Add Product</a><br>
+  <a href="{% url 'purchase:add_Tax' %}">Add Tax</a><br>
+  <a href="{% url 'purchase:purchase_invoice' %}">Create A Purchase Invoice</a><br>
+  <a href="{% url 'purchase:salesstatement_add' %}">Add Sales Statement</a><br>
+  <a href="{% url 'purchase:view_sales_statement_add' %}">View Sales Statement</a>
+
+  </div>
+
+  <div class="links">
+    <h4> TOKEN </h4>
+    <a href="{% url 'tokenapp:worker_add' %}">Add a Worker</a>
+    <a href="{% url 'tokenapp:log_attendence' %}">Log Attendence</a>
+  </div>
+
+</body>
+
 </html>

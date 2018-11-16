@@ -1,4 +1,4 @@
-<!DOCTYPE html> {% load static %}
+<!DOCTYPE html> {% load static widget_tweaks%}
 <html lang="en" dir="ltr">
 
 <head>
@@ -6,27 +6,54 @@
   <title>View Sales Statement</title>
   <link rel="stylesheet" href="{% static 'css/purchase.css' %}">
   <link rel="stylesheet" href="{% static 'css/jquery_ui.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 </head>
 
 <body>
-  <section style="text-align=" center>
-    <h1>View Sales Statement</h1> {% block content %} Select From: <input class="ui-button ui-widget ui-corner-all" type="submit" value="from" id="datepicker-frm">
-    <br> Select End
-    <input class="ui-button ui-widget ui-corner-all" type="submit" value="to" id="datepicker-to">
+
+  <section style="text-align:center">
+    <h1>View Sales Statement</h1>
+    <hr>
+    <br> {% block content %}
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8">
+        Select From: <input class="ui-button ui-widget ui-corner-all" type="submit" value="from" id="datepicker-frm">
+
+        <br> <br><br><br>Select End
+        <input class="ui-button ui-widget ui-corner-all" type="submit" value="to" id="datepicker-to">
+
+        <form method="POST" id="ViewPurchaseStatementForm" novalidate>
+          {% csrf_token %}
+          <div style="text-align:center;min-height:100px">
+
+            <div style="display:none">
+              {% render_field form.from_date%}
+            </div>
+            <div style="display:none">
+              {% render_field form.end_date class+="form-control " %}
+            </div>
+          </div>
+          <button type="submit" class="save btn btn-default">View</button>
+        </form>
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
 
 
 
+    <!-- <form method="POST" id="ViewPurchaseStatementForm" novalidate> -->
+    <!-- {% csrf_token %} -->
+    <!-- <table> -->
+    <!-- {{ form.as_table }} -->
+    <!-- </table> -->
 
+    <!-- <button type="submit" class="save btn btn-default">View</button> -->
+    <!-- </form> -->
 
-    <form method="POST" id="ViewPurchaseStatementForm" novalidate>
-      {% csrf_token %}
-      <table>
-        {{ form.as_table }}
-      </table>
-
-      <button type="submit" class="save btn btn-default">View</button>
-    </form>
-
+    </secton>
 
     {% endblock %}
     <script src="https://code.jquery.com/jquery-1.12.4.js" charset="utf-8"></script>
