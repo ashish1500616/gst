@@ -107,7 +107,7 @@ class Product(models.Model):
         Tax, on_delete=models.CASCADE, related_name='product_igst', default=0)
 
     def __str__(self):
-        return (str(self.id) + "  " + self.name)
+        return (self.name)
 
 
 class PurchaseInvoice(models.Model):

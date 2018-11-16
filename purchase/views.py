@@ -3,7 +3,7 @@ from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from .models import Vendor, Country, State, Town, PurchaseInvoice, SalesStatement, VSalesStatement
+from .models import Vendor, Country, State, Town, PurchaseInvoice, SalesStatement, VSalesStatement, Product
 from .forms import VendorForm, ProductForm, TaxForm, PurchaseInvoiceForm, SalesStatementForm, VSalesStatementForm
 from django.views.generic import ListView, CreateView, UpdateView
 import datetime
@@ -248,3 +248,11 @@ def addTax(request):
     else:
         form = TaxForm()
     return render(request, 'purchase/addTax.html', {'form': form})
+
+# Function to Load Selling Price of the selected Product.
+
+
+def load_sellingPrice(request):
+    product_id = request.GET.get('product')
+    sp = Product.objects.get(id=product_id).sellPrice
+    return render(request, 'purchase/selling_price.html', {'sellP': sp})

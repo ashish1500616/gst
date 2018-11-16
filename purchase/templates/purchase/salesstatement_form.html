@@ -66,6 +66,7 @@
             <hr>
             <!-- Single Product address -->
             <button type="button" class="btn btn-default" onclick="showDiv()" name="button"> Add Product</button>
+            <button type="button" class="btn btn-default" onclick="hideDiv()" name="button"> Hide Product Section</button>
 
             <div id="Product_Div" style="display:none;" class="">
               <div class="container">
@@ -229,6 +230,10 @@
       function showDiv() {
         document.getElementById('Product_Div').style.display = "block";
       }
+
+      function hideDiv() {
+        document.getElementById('Product_Div').style.display = "none";
+      }
       // $(function() {
       //
       //   $(function() {
@@ -286,6 +291,24 @@
           document.getElementById("id_total_ammount").value = (2 * Number(tax)) + Number(principal);
 
         }
+      });
+
+      //Ajax code to fetch the selling Price of the product.
+      $("#id_product").change(function() {
+        var url = "{% url 'purchase:ajax_load_selling_price' %}";
+        var product_Id = $(this).val();
+        console.log("Product Selected = " + product_Id);
+        $.ajax({ // initialize an AJAX request
+          url: url,
+          data: {
+            'product': product_Id
+          },
+          success: function(data) {
+            console.log("Price of Product fetched " + data);
+            document.getElementById("spp").value = data;
+          }
+        });
+
       });
     </script>
 

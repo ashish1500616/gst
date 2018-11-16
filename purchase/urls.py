@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url('ajax/load-states/', views.load_states, name='ajax_load_states'),
     url('ajax/load-towns/', views.load_towns, name='ajax_load_towns'),
+    url('ajax/load-selling-price/', views.load_sellingPrice,
+        name='ajax_load_selling_price')
 ]
