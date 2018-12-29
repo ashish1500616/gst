@@ -1,323 +1,319 @@
 <!DOCTYPE html>{% load static widget_tweaks %}
 <html lang="en" dir="ltr">
 
-<head>
-  <meta charset="utf-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-  <title>Add Sales Statement</title>
-  <link rel="stylesheet" href="{% static 'css/purchase.css' %}">
-  <link rel="stylesheet" href="{% static 'css/jquery_ui.css' %}">
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <title>Add Sales Statement</title>
+    <link rel="stylesheet" href="{% static 'css/purchase.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery_ui.css' %}">
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-</head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  </head>
 
-<body>
-  <section>
-    <div class="" style="text-align:center">
-      <h1>Add Purchase Statement</h1>
-    </div>
-    <hr> {% block content %}
+  <body>
+    <section>
+      <div class="" style="text-align:center">
+        <h1>Add Purchase Statement</h1>
+      </div>
+      <hr>
+      {% block content %}
 
-    <!-- <input class="ui-button ui-widget ui-corner-all" type="submit" value="Select Date" id="datepicker"> -->
+        <!-- <input class="ui-button ui-widget ui-corner-all" type="submit" value="Select Date" id="datepicker"> -->
 
-    <!-- <form method="POST" id="AddPurchaseStatementForm" novalidate>
-      {% csrf_token %}
-      <table>
-        {{ form.as_table }}
-      </table>
-      <button type="button" name="button" id="calculate">Calculate</button>
-      <button type="submit" class="save btn btn-default">Save</button>
-    </form> -->
+        <!-- <form method="POST" id="AddPurchaseStatementForm" novalidate> {% csrf_token %} <table> {{ form.as_table }} </table> <button type="button" name="button" id="calculate">Calculate</button> <button type="submit" class="save btn
+        btn-default">Save</button> </form> -->
 
-    <div class="container">
+        <div class="container">
 
-
-
-      <form method="POST" id="AddPurchaseStatementForm" novalidate>
-        {% csrf_token %}
-        <div style="text-align:center;">
-          <div class="container">
-            <!-- <div class="row">
-            <div class="col-md-5">
-
-            </div>
-            <div class="col-md-6">
-
-
-            </div>
-          </div> -->
-            <div class="row">
-              <div class="col-md-6">
-                <!-- <div class="col-md-4">
-
-                </div> -->
-                <div class="col-md-12">
-                  Select Vendors: {% render_field form.vendor_name class+="form-control " %}
-                </div>
-              </div>
-              <div style="" class="col-md-6">
-                Selected Date :<br>
-                <div style="display:none;">
-                  {% render_field form.date class+="form-control " %}
-                </div> <input class="ui-button ui-widget ui-corner-all" type="text" value="Select Date" id="datepicker">
-              </div>
-            </div>
-            <hr>
-            <!-- Single Product address -->
-            <button type="button" class="btn btn-default" onclick="showDiv()" name="button"> Add Product</button>
-            <button type="button" class="btn btn-default" onclick="hideDiv()" name="button"> Hide Product Section</button>
-
-            <div id="Product_Div" style="display:none;" class="">
+          <form method="POST" id="AddPurchaseStatementForm" novalidate="novalidate">
+            {% csrf_token %}
+            <div style="text-align:center;">
               <div class="container">
+                <!-- <div class="row"> <div class="col-md-5"> </div> <div class="col-md-6"> </div> </div> -->
                 <div class="row">
-                  <div style="width: 200px;" class=" mx-auto col-md-4 ">
-                    <label for="SelectProduct">Select Product</label><br> {% render_field form.product class+="form-control " %}
-                  </div>
-                  <div class="col-md-4">
-                    <div class="col-md-12 pagination-centered text-center">
-                      <label for="nop">No of Product</label>
+                  <div class="col-md-6">
+                    <!-- <div class="col-md-4"> </div> -->
+                    <div class="col-md-12">
+                      Select Vendors:
+                      {% render_field form.vendor_name class+="form-control " %}
                     </div>
-                    <div class="col-md-12 pagination-centered text-center">
-                      <input type="text" name="" id="nop" value="0">
+                  </div>
+                  <div style="" class="col-md-6">
+                    Selected Date :<br>
+                    <div style="display:none;">
+                      {% render_field form.date class+="form-control " %}
                     </div>
-
-
-                  </div>
-                  <div class="col-md-4">
-                    <div class="col-md-12 pagination-centered text-center">
-                      <label for="nop">Selling Price</label>
-                    </div>
-                    <div class="col-md-12 pagination-centered text-center">
-                      <input type="text" name="" id="spp" value="0">
-                    </div>
-
-                  </div>
-                  <div class="col-md-4">
-                    <div class="col-md-12 pagination-centered text-center">
-                      <label for="nop">Taxable Value</label>
-                    </div>
-                    <div class="col-md-12 pagination-centered text-center">
-                      <input type="text" name="" id="sptvp" value="0">
-                    </div>
-
-
-                  </div>
-                  <div class="col-md-4 pagination-centered text-center">
-                    <label for="nop">Select Tax Type</label><br>
-                    <input type="radio" name="sp_tax_type" value="IGST">IGST<br>
-                    <input type="radio" name="sp_tax_type" value="CGST/SGST"> CGST/SGST<br>
-                  </div>
-                  <div class="col-md-4 pagination-centered text-center">
-                    <label for="nop">Tax %</label><br>
-                    <input type="radio" name="sp_tax_value" value="10%">10%<br>
-                    <input type="radio" name="sp_tax_value" value="20%">20%<br>
-                    <input type="radio" name="sp_tax_value" value="30%">30%<br>
-                    <input type="radio" name="sp_tax_value" value="40%">40%<br>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-3 pagination-centered text-center">
-                    <label for="nop">Tax IGST</label><br>
-                    <input type="text" name="" id="sptigst" value="0">
-                  </div>
-                  <div class="col-md-3 pagination-centered text-center">
-                    <label for="nop">Tax CGST</label><br>
-                    <input type="text" name="" id="sptcgst" value="0">
-                  </div>
-                  <div class="col-md-3 pagination-centered text-center">
-                    <label for="nop">Tax SGST</label><br>
-                    <input type="text" name="" id="sptsgst" value="0">
-                  </div>
-                  <div class="col-md-3 pagination-centered text-center">
-                    <label for="nop">Total Value</label><br>
-                    <input type="text" name="" id="sptotalValue" value="0">
+                    <input class="ui-button ui-widget ui-corner-all" type="text" value="Select Date" id="datepicker">
                   </div>
                 </div>
                 <hr>
-                <div class="row ">
-                  <div class="col-md-6 pagination-centered text-center">
-                    <button type="button" name="Calculate Tax">Calculate</button>
+                <!-- Single Product address -->
+                <button type="button" class="btn btn-default" onclick="showDiv()" name="button">
+                  Add Product</button>
+                <button type="button" class="btn btn-default" onclick="hideDiv()" name="button">
+                  Hide Product Section</button>
+
+                <div id="Product_Div" style="display:none;" class="">
+
+                  <form class="" method="post">
+
+                    <div class="container">
+                      <div class="row">
+                        <div style="width: 200px;" class=" mx-auto col-md-4 ">
+                          <label for="SelectProduct">Select Product</label><br>
+                          {% render_field form.product class+="form-control " %}
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-12 pagination-centered text-center">
+                            <label for="nop">No of Product</label>
+                          </div>
+                          <div class="col-md-12 pagination-centered text-center">
+                            <input type="text" name="" id="nop" value="0">
+                          </div>
+
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-12 pagination-centered text-center">
+                            <label for="nop">Selling Price</label>
+                          </div>
+                          <div class="col-md-12 pagination-centered text-center">
+                            <input type="text" name="" id="spp" value="0">
+                          </div>
+
+                        </div>
+                        <div class="col-md-4">
+                          <div class="col-md-12 pagination-centered text-center">
+                            <label for="si_tax_val">Taxable Value</label>
+                          </div>
+                          <div class="col-md-12 pagination-centered text-center">
+                            <input type="text" name="" id="sptvp" value="0">
+                          </div>
+
+                        </div>
+                        <div class="col-md-4 pagination-centered text-center">
+                          <label for="si_tax_type">Select Tax Type</label><br>
+                          <input type="radio" name="sp_tax_type" value="IGST">IGST<br>
+                          <input type="radio" name="sp_tax_type" value="CGST/SGST">
+                          CGST/SGST<br>
+                        </div>
+                        <div class="col-md-4 pagination-centered text-center">
+                          <label for="si_tax_value">Tax %</label><br>
+                          <input type="radio" name="sp_tax_value" value="10%">10%<br>
+                          <input type="radio" name="sp_tax_value" value="20%">20%<br>
+                          <input type="radio" name="sp_tax_value" value="30%">30%<br>
+                          <input type="radio" name="sp_tax_value" value="40%">40%<br>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-3 pagination-centered text-center">
+                          <label for="nop">Tax IGST</label><br>
+                          <input type="text" name="" id="sptigst" value="0">
+                        </div>
+                        <div class="col-md-3 pagination-centered text-center">
+                          <label for="nop">Tax CGST</label><br>
+                          <input type="text" name="" id="sptcgst" value="0">
+                        </div>
+                        <div class="col-md-3 pagination-centered text-center">
+                          <label for="nop">Tax SGST</label><br>
+                          <input type="text" name="" id="sptsgst" value="0">
+                        </div>
+                        <div class="col-md-3 pagination-centered text-center">
+                          <label for="nop">Total Value</label><br>
+                          <input type="text" name="" id="sptotalValue" value="0">
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row ">
+                        <div class="col-md-6 pagination-centered text-center">
+                          <button type="button" name="Calculate Tax">Calculate</button>
+                        </div>
+                        <div class="col-md-6 pagination-centered text-center">
+                          <button type="button" name="button">ADD</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+                <hr>
+                <!-- Single Product End -->
+                <!-- <div class="row"> <div class="col-md-3"> </div> <div class="col-md-6"> </div> </div> -->
+                <!-- Bill No div -->
+                <!-- <div class="row"> <div class="col-md-6"> Bill_no: {% render_field form.bill_no class+="form-control " %} </div> </div> -->
+                <div class="row" style="display:none;">
+                  <div class="col-md-6">
+                    Select Product:
                   </div>
-                  <div class="col-md-6 pagination-centered text-center">
-                    <button type="button" name="button">ADD</button>
+                  <div class="col-md-6">
+                    {% render_field form.product class+="form-control " %}
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div style="" class="col-md-6">
+                    State:
+                    {% render_field form.state class+="form-control " %}
+                  </div>
+                  <div class="col-md-6">
+                    Tax Amount:
+                    {% render_field form.tax_amount class+="form-control " %}
                   </div>
                 </div>
-              </div>
-            </div>
-            <hr>
-            <!-- Single Product End -->
-            <!-- <div class="row">
-              <div class="col-md-3">
-              </div>
-              <div class="col-md-6">
-              </div>
-            </div> -->
-            <!-- Bill No div -->
-            <!-- <div class="row">
+                <div class="row">
+                  <div style="" class="col-md-6">
+                    Tax Type:
+                    {% render_field form.tax_type class+="form-control " %}
+                  </div>
+                  <div class="col-md-6">
+                    Tax Value:
+                    {% render_field form.tax_value class+="form-control " %}
+                  </div>
+                </div>
 
-              <div class="col-md-6">
-                Bill_no: {% render_field form.bill_no class+="form-control " %}
-              </div>
-            </div> -->
-            <div class="row" style="display:none;">
-              <div class="col-md-6">
-                Select Product:
-              </div>
-              <div class="col-md-6">
-                {% render_field form.product class+="form-control " %}
-              </div>
+                <div class="row">
+                  <div style="" class="col-md-6">
+                    IGST
+                    {% render_field form.igst class+="form-control " %}
+                  </div>
+                  <div class="col-md-6">
+                    CGST
+                    {% render_field form.cgst class+="form-control " %}
+                  </div>
+                </div>
 
-            </div>
-            <div class="row">
-              <div style="" class="col-md-6">
-                State: {% render_field form.state class+="form-control " %}
-              </div>
-              <div class="col-md-6">
-                Tax Amount: {% render_field form.tax_amount class+="form-control " %}
-              </div>
-            </div>
-            <div class="row">
-              <div style="" class="col-md-6">
-                Tax Type: {% render_field form.tax_type class+="form-control " %}
-              </div>
-              <div class="col-md-6">
-                Tax Value: {% render_field form.tax_value class+="form-control " %}
-              </div>
-            </div>
-
-            <div class="row">
-              <div style="" class="col-md-6">
-                IGST {% render_field form.igst class+="form-control " %}
-              </div>
-              <div class="col-md-6">
-                CGST {% render_field form.cgst class+="form-control " %}
+                <div class="row">
+                  <div style="" class="col-md-6">
+                    SGST
+                    {% render_field form.sgst class+="form-control " %}
+                  </div>
+                  <div class="col-md-6">
+                    Total Amount
+                    {% render_field form.total_ammount class+="form-control " %}
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div style="" class="col-md-6">
+                    <button type="button" class="btn btn-default" name="button" id="calculate">Calculate</button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="submit" class="save btn btn-default">Save</button>
+                  </div>
+                </div>
+                <a href="{% url 'purchase:home' %}">Go To Home</a>
               </div>
             </div>
-
-            <div class="row">
-              <div style="" class="col-md-6">
-                SGST {% render_field form.sgst class+="form-control " %}
-              </div>
-              <div class="col-md-6">
-                Total Amount {% render_field form.total_ammount class+="form-control " %}
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div style="" class="col-md-6">
-                <button type="button" class="btn btn-default" name="button" id="calculate">Calculate</button>
-              </div>
-              <div class="col-md-6">
-                <button type="submit" class="save btn btn-default">Save</button>
-              </div>
-            </div>
-            <a href="{% url 'purchase:home' %}">Go To Home</a>
           </div>
-        </div>
-    </div>
 
+        </form>
 
-    </form>
-
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js" charset="utf-8"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" charset="utf-8"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-      function showDiv() {
-        document.getElementById('Product_Div').style.display = "block";
-      }
-
-      function hideDiv() {
-        document.getElementById('Product_Div').style.display = "none";
-      }
-      // $(function() {
-      //
-      //   $(function() {
-      //     $("#datepicker").change(function() {
-      //       document.getElementById("id_date").value = $("#datepicker").datepicker();
-      //     });
-      //   });
-      //   var dateFormat = "mm/dd/yy";
-      //
-      //   function getDate(element) {
-      //     var date;
-      //     try {
-      //       date = $.datepicker.parseDate(dateFormat, element.value);
-      //     } catch (error) {
-      //       date = null;
-      //     }
-      //
-      //     return date;
-      //   }
-      // });
-      $(function() {
-        $("#datepicker").datepicker();
-
-      });
-      $("#datepicker").change(function() {
-        document.getElementById("id_date").value = $("#datepicker").val();
-      })
-
-      var tax_type = ""
-      $("#calculate").click(function() {
-        console.log("Calculate clicked");
-        var tax_type = $(id_tax_type).val();
-        console.log(tax_type);
-        var principal = $(id_tax_amount).val();
-        console.log(principal);
-
-        if (tax_type == "IGST") {
-          var tax_value = $(id_tax_value).val();
-          console.log(tax_value);
-          var igst_val = Math.round((tax_value / 100) * principal);
-          console.log(igst_val);
-          document.getElementById("id_igst").value = igst_val;
-          document.getElementById("id_cgst").value = 0;
-          document.getElementById("id_sgst").value = 0;
-          document.getElementById("id_total_ammount").value = Number(igst_val) + Number(principal);
-        } else {
-          var tax_value = $(id_tax_value).val();
-          var tax = Math.round((tax_value / 100) * principal);
-          console.log(tax);
-          document.getElementById("id_igst").value = 0;
-          console.log($(id_cgst).val());
-          console.log($(id_sgst).val());
-          document.getElementById("id_cgst").value = tax;
-          document.getElementById("id_sgst").value = tax;
-          document.getElementById("id_total_ammount").value = (2 * Number(tax)) + Number(principal);
-
-        }
-      });
-
-      //Ajax code to fetch the selling Price of the product.
-      $("#id_product").change(function() {
-        var url = "{% url 'purchase:ajax_load_selling_price' %}";
-        var product_Id = $(this).val();
-        console.log("Product Selected = " + product_Id);
-        $.ajax({ // initialize an AJAX request
-          url: url,
-          data: {
-            'product': product_Id
-          },
-          success: function(data) {
-            console.log("Price of Product fetched " + data);
-            document.getElementById("spp").value = data;
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js" charset="utf-8"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" charset="utf-8"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+          function showDiv() {
+            document.getElementById('Product_Div').style.display = "block";
           }
-        });
 
-      });
-    </script>
+          function hideDiv() {
+            document.getElementById('Product_Div').style.display = "none";
+          }
+          // $(function() {
+          //
+          //   $(function() {     $("#datepicker").change(function() {       document.getElementById("id_date").value = $("#datepicker").datepicker();     });   });   var dateFormat = "mm/dd/yy";
+          //
+          //   function getDate(element) {     var date;     try {       date = $.datepicker.parseDate(dateFormat, element.value);     } catch (error) {       date = null;     }
+          //
+          //     return date;   } }); Variable initialize
+          var si_sp = 0;
+          var si_no_of_products = 0;
+          var si_taxable_value = 0;
+          $(function () {
+            $("#datepicker").datepicker();
 
+          });
+          $("#datepicker").change(function () {
+            document.getElementById("id_date").value = $("#datepicker").val();
+          })
 
-    {% endblock %}
+          // Assigning taxable Value for Single Item
+          $("#nop").change(function () {
+            si_no_of_products = $("#nop").val();
+            si_taxable_value = si_no_of_products * si_sp;
+            document.getElementById("sptvp").value = si_taxable_value;
+          });
+          //
 
-  </section>
+          $(document).ready(function () {
+            $("#sp_tax_type").change(function () { // bind a function to the change event
+              console.log("Radio Button Changed")
+              if ($(this).is(":checked")) { // check if the radio is checked
+                var val = $(this).val(); // retrieve the value
+                console.log(val);
+              }
+            });
+          });
 
-</body>
+          // var si_selected_tax = $('input[name=sp_tax_type]:checked', '#myForm').val(); console.log(si_selected_tax);
 
+          var tax_type = ""
+          $("#calculate").click(function () {
+            console.log("Calculate clicked");
+            var tax_type = $(id_tax_type).val();
+            console.log(tax_type);
+            var principal = $(id_tax_amount).val();
+            console.log(principal);
+
+            if (tax_type == "IGST") {
+              var tax_value = $(id_tax_value).val();
+              console.log(tax_value);
+              var igst_val = Math.round((tax_value / 100) * principal);
+              console.log(igst_val);
+              document.getElementById("id_igst").value = igst_val;
+              document.getElementById("id_cgst").value = 0;
+              document.getElementById("id_sgst").value = 0;
+              document.getElementById("id_total_ammount").value = Number(igst_val) + Number(principal);
+            } else {
+              var tax_value = $(id_tax_value).val();
+              var tax = Math.round((tax_value / 100) * principal);
+              console.log(tax);
+              document.getElementById("id_igst").value = 0;
+              console.log($(id_cgst).val());
+              console.log($(id_sgst).val());
+              document.getElementById("id_cgst").value = tax;
+              document.getElementById("id_sgst").value = tax;
+              document.getElementById("id_total_ammount").value = (2 * Number(tax)) + Number(principal);
+
+            }
+          });
+
+          //Ajax code to fetch the selling Price of the product.
+          $("#id_product").change(function () {
+            var url = "{% url 'purchase:ajax_load_selling_price' %}";
+            var product_Id = $(this).val();
+            console.log("Product Selected = " + product_Id);
+            $.ajax({ // initialize an AJAX request
+              url: url,
+              data: {
+                'product': product_Id
+              },
+              success: function (data) {
+                console.log("Price of Product fetched " + data);
+                si_sp = data;
+                document.getElementById("spp").value = data;
+              }
+            });
+
+          });
+        </script>
+
+      {% endblock %}
+
+    </section>
+
+  </body>
 
 </html>

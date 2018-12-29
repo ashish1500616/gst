@@ -1,73 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-<head>
-  <meta charset="utf-8">
-  <title>Add Vendor</title>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Vendor</title>
+  </head>
 
-<body>
-  <section style="text-align=" center>
-    <h1>Add Vendors</h1> {% block content %}
-    <form method="POST" id="vendorForm" data-states-url="{% url 'purchase:ajax_load_states'%}" data-towns-url="{% url 'purchase:ajax_load_towns'%}" novalidate>
-      {% csrf_token %}
-      <table>
-        {{ form.as_table }}
-      </table>
+  <body>
+    <section style="text-align=" center="center">
+      <h1>Add Vendors</h1>
+      {% block content %}
+        <form method="POST" id="vendorForm" data-states-url="{% url 'purchase:ajax_load_states'%}" data-towns-url="{% url 'purchase:ajax_load_towns'%}" novalidate="novalidate">
+          {% csrf_token %}
+          <table>
+            {{ form.as_table }}
+          </table>
 
-      <button type="submit" class="save btn btn-default">Save</button>
-    </form>
-    <a href="{% url 'purchase:home' %}">Go To Home</a>
+          <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+        <a href="{% url 'purchase:home' %}">Go To Home</a>
 
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+          var countryName = ""
+          $("#id_country").change(function () {
+            var url = $("#vendorForm").attr("data-states-url"); // get the url of the `load_cities` view
+            var countryName = $(this).val(); // get the selected country ID from the HTML input
+            console.log(countryName)
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script>
-      var countryName = ""
-      $("#id_country").change(function() {
-        var url = $("#vendorForm").attr("data-states-url"); // get the url of the `load_cities` view
-        var countryName = $(this).val(); // get the selected country ID from the HTML input
-        console.log(countryName)
+            $.ajax({ // initialize an AJAX request
+              url: url, // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+              data: {
+                'country': countryName // add the country id to the GET parameters
+              },
+              success: function (data) { // `data` is the return of the `load_cities` view function
+                $("#id_state").html(data);
+                // replace the contents of the city input with the data that came from the server
 
-        $.ajax({ // initialize an AJAX request
-          url: url, // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-          data: {
-            'country': countryName // add the country id to the GET parameters
-          },
-          success: function(data) { // `data` is the return of the `load_cities` view function
-            $("#id_state").html(data);
-            // replace the contents of the city input with the data that came from the server
+              }
+            });
 
-          }
-        });
+          });
+          $("#id_state").change(function () {
+            var url = $("#vendorForm").attr("data-towns-url"); // get the url of the `load_cities` view
+            var stateName = $(this).val(); // get the selected country ID from the HTML input
+            var countryValue = $("#id_country").val();
+            console.log(stateName)
 
-      });
-      $("#id_state").change(function() {
-        var url = $("#vendorForm").attr("data-towns-url"); // get the url of the `load_cities` view
-        var stateName = $(this).val(); // get the selected country ID from the HTML input
-        var countryValue = $("#id_country").val();
-        console.log(stateName)
+            $.ajax({ // initialize an AJAX request
+              url: url, // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+              data: {
+                'state': stateName,
+                'country': countryValue
+                // add the country id to the GET parameters
+              },
+              success: function (data) { // `data` is the return of the `load_cities` view function
+                $("#id_town").html(data); // replace the contents of the city input with the data that came from the server
+              }
+            });
 
-        $.ajax({ // initialize an AJAX request
-          url: url, // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-          data: {
-            'state': stateName,
-            'country': countryValue
-            // add the country id to the GET parameters
-          },
-          success: function(data) { // `data` is the return of the `load_cities` view function
-            $("#id_town").html(data); // replace the contents of the city input with the data that came from the server
-          }
-        });
+          });
+        </script>
 
-      });
-    </script>
+      {% endblock %}
 
+    </section>
 
-    {% endblock %}
-
-  </section>
-
-</body>
-
+  </body>
 
 </html>
