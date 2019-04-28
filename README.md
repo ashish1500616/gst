@@ -1,5 +1,12 @@
 Step to Follow 
 
+
+Checkout Out to SellingPriceUpdate Branch
+
+```
+git checkout SellingPriceUpdate
+```
+
 Installing a virtual environment
 
 ```
